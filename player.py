@@ -24,6 +24,7 @@ class Player(Camera):
         # Looks for inputs of key presses and moves camera accordingly
         keys = pg.key.get_pressed()
         vel = PLAYER_SPEED * self.app.delta_time
+        # Moves player horizontally
         if keys[pg.K_w]:
             self.move_forward(vel)
         if keys[pg.K_s]:
@@ -32,6 +33,7 @@ class Player(Camera):
             self.move_left(vel)
         if keys[pg.K_d]:
             self.move_right(vel)
+        # Moves player vertically
         if keys[pg.K_SPACE]:
             self.move_up(vel)
         if keys[pg.K_LSHIFT]:
