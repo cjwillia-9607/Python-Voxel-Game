@@ -38,4 +38,4 @@ PLAYER_POS = glm.vec3(CENTER_XZ, WORLD_H * CHUNK_SIZE, CENTER_XZ) # Initial posi
 MOUSE_SENSITIVITY = 0.0015
 
 # colors
-BG_COLOR = glm.vec3(0.1, 0.16, 0.25)
+BG_COLOR = glm.vec3(0.53, 0.81, 0.92)
