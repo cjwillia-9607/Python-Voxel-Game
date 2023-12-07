@@ -6,6 +6,7 @@ from shader_program import ShaderProgram
 from scene import Scene
 from player import Player
 from textures import Textures
+from menus import Menu
 
 class VoxelEngine:
     def __init__(self):
@@ -17,8 +18,8 @@ class VoxelEngine:
         pg.display.gl_set_attribute(pg.GL_DEPTH_SIZE, 24)
 
         # Initializes the PyGame display and creates OpenGL context (frame and depth buffers)
-        pg.display.set_mode(WIN_RES, flags=pg.OPENGL | pg.DOUBLEBUF | pg.RESIZABLE)
-        pg.display.set_caption("Simple Voxel Engine")
+        self.screen = pg.display.set_mode(WIN_RES, flags=pg.OPENGL | pg.DOUBLEBUF | pg.RESIZABLE)
+        pg.display.set_caption("6.4400 Graphics Project")
         self.ctx = mgl.create_context()
         self.ctx.enable(flags=mgl.DEPTH_TEST | mgl.CULL_FACE | mgl.BLEND)
         # Enables automatic garbage collecting to clean up unused objects
@@ -33,6 +34,9 @@ class VoxelEngine:
         pg.event.set_grab(True)
         pg.mouse.set_visible(False)
 
+        # fonts
+        self.font = pg.font.SysFont('Arial', 32)
+
         self.running = True
         self.on_init()
 
@@ -41,6 +45,7 @@ class VoxelEngine:
         self.player = Player(self)
         self.shader_program = ShaderProgram(self)
         self.scene  = Scene(self)
+        self.menu = Menu(self)
 
     def update(self):
         self.player.update()
@@ -50,19 +55,23 @@ class VoxelEngine:
         self.delta_time = self.clock.tick()
         self.time = pg.time.get_ticks() * 0.001
         # Displays frame rate
-        pg.display.set_caption(f"Voxel Engine | FPS: {self.clock.get_fps():.2f}")
+        pg.display.set_caption(f"6.4400 Graphics Project | FPS: {self.clock.get_fps():.2f}")
 
     def render(self):
         # Clears any existing frame and depth buffers and create new scene and frame
         self.ctx.clear(color=BG_COLOR)
-        self.scene.render()
+        # self.scene.render()
+        self.menu.render()
         pg.display.flip()
 
     def handle_events(self):
+        
         # Watches for escape key presses to close window
         for event in pg.event.get():
             if event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
                 self.running = False
+            if event.type == pg.KEYDOWN and event.key == pg.K_f:
+                pg.mouse.set_visible(not pg.mouse.get_visible())
 
     def run(self):
         while self.running:

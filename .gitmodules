@@ -13,3 +13,6 @@
 [submodule "lib/numpy"]
 	path = lib/numpy
 	url = https://github.com/numpy/numpy.git
+[submodule "lib/pyimgui"]
+	path = lib/pyimgui
+	url = https://github.com/pyimgui/pyimgui.git
