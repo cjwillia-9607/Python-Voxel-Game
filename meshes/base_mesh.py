@@ -7,9 +7,9 @@ class BaseMesh:
         self.ctx = None
         # Shader program
         self.program = None
-        # Vertex buffer data type format: 3f 3f
+        # Vertex buffer data type format
         self.vbo_format = None
-        # attribute names in the format of: ("in_position", "in_color")
+        # attribute names
         self.attrs: tuple[str, ...] = None
         # vertex array object
         self.vao = None
