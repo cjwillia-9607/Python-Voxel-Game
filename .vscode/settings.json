@@ -1,0 +1,9 @@
+{
+    "python.analysis.extraPaths": [
+        "./lib/numba",
+        "./lib/pyglm",
+        "./lib/modern-gl",
+        "./lib/pygame",
+        "./lib/numpy"
+    ]
+}

@@ -10,3 +10,6 @@
 [submodule "lib/numba"]
 	path = lib/numba
 	url = https://github.com/numba/numba.git
+[submodule "lib/numpy"]
+	path = lib/numpy
+	url = https://github.com/numpy/numpy.git
