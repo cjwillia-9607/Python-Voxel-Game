@@ -1,0 +1,12 @@
+[submodule "lib/modern-gl"]
+	path = lib/modern-gl
+	url = https://github.com/moderngl/moderngl.git
+[submodule "lib/pygame"]
+	path = lib/pygame
+	url = https://github.com/pygame/pygame.git
+[submodule "lib/pyglm"]
+	path = lib/pyglm
+	url = https://github.com/Zuzu-Typ/PyGLM.git
+[submodule "lib/numba"]
+	path = lib/numba
+	url = https://github.com/numba/numba.git
