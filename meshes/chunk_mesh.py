@@ -19,7 +19,7 @@ class ChunkMesh(BaseMesh):
         mesh = build_chunk_mesh(
             chunk_voxels = self.chunk.voxels, 
             format_size = self.format_size,
-            chunk_pos = self.chunk.position,
-            world_voxels = self.chunk.world.voxels, # Optimization to only render visible chunks, not chunks that are surrounded by other chunks
+            chunk_pos = self.chunk.position, # Optimization to only render visible chunks, not chunks that are surrounded by other chunks
+            world_voxels = self.chunk.world.voxels, 
         )
         return mesh

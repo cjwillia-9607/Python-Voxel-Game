@@ -18,6 +18,7 @@ class VoxelEngine:
 
         # Initializes the PyGame display and creates OpenGL context (frame and depth buffers)
         pg.display.set_mode(WIN_RES, flags=pg.OPENGL | pg.DOUBLEBUF | pg.RESIZABLE)
+        pg.display.set_caption("Simple Voxel Engine")
         self.ctx = mgl.create_context()
         self.ctx.enable(flags=mgl.DEPTH_TEST | mgl.CULL_FACE | mgl.BLEND)
         # Enables automatic garbage collecting to clean up unused objects
@@ -58,9 +59,9 @@ class VoxelEngine:
         pg.display.flip()
 
     def handle_events(self):
-        # Watches for key presses to close window
+        # Watches for escape key presses to close window
         for event in pg.event.get():
-            if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
+            if event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
                 self.running = False
 
     def run(self):

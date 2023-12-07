@@ -28,13 +28,13 @@ class Chunk:
             self.set_uniform()
             self.mesh.render()
     
-    def build_voxels(self) -> np.array:
+    def build_voxels(self):
         # empty chunk
         voxels = np.zeros(CHUNK_VOL, dtype=np.uint8) # Voxel is a number from 0 to 255, where 0 means empty space
         
         # simple terrain generation
         cx, cy, cz = glm.ivec3(self.position) * CHUNK_SIZE  # Chunk position in world coordinates
-
+        # Iterates through horizontal plane then verticalally
         for x in range(CHUNK_SIZE):
             for z in range(CHUNK_SIZE):
                 wx = x + cx # World coord of curr voxel
@@ -42,7 +42,6 @@ class Chunk:
                 # Simplex noise to generate terrain elevation differences
                 world_height = int(glm.simplex(glm.vec2(wx, wz) * 0.01) * 32 + 32)
                 local_height = min(world_height - cy, CHUNK_SIZE)
-
                 for y in range(local_height):
                     wy = y + cy
                     voxels[(x + CHUNK_SIZE * z + CHUNK_AREA * y)] = wy + 1

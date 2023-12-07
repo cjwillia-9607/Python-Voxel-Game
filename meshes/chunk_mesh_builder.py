@@ -4,6 +4,7 @@ from numba import uint8
 # Uses numba compiler to speed up mesh building process
 @njit
 def to_numba_uint8(x, y, z, voxel_id, face_id):
+    # Converts data to uint8 format for numba to save memory
     return uint8(x), uint8(y), uint8(z), uint8(voxel_id), uint8(face_id)
 
 @njit
@@ -36,10 +37,10 @@ def is_void(local_vox_pos, world_vox_pos, world_voxels):
 
 @njit
 def add_data(vertex_data, index, *vertices):
-    # Adds attributes to vertex data array 
+    # Adds data to vertex data array 
     for vertex in vertices:
-        for attr in vertex:
-            vertex_data[index] = attr
+        for data in vertex:
+            vertex_data[index] = data
             index += 1
     return index
 
@@ -56,7 +57,7 @@ def build_chunk_mesh(chunk_voxels, format_size, chunk_pos, world_voxels):
                 #Ignore empty space
                 if voxel_id == 0:
                     continue
-
+                # Gets chunk positions and then world positions of voxel
                 cx, cy, cz = chunk_pos
                 wx = x + cx * CHUNK_SIZE
                 wy = y + cy * CHUNK_SIZE
