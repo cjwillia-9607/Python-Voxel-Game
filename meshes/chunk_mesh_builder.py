@@ -19,7 +19,7 @@ def add_data(vertex_data, index, *vertices):
 def build_chunk_mesh(chunk_voxels, format_size):
     # Only adds data from voxel faces that are visible to camera to imporve performance
     # Max 3 visible faces per voxel, 2 triangles per face, 3 verticies per triangle = 18 verticies
-    vertex_data = np.empty(CHUNK_VOL * 18 * format_size, dtype=np.uint8)
+    vertex_data = np.empty(CHUNK_VOL * 18 * format_size, dtype = 'uint8')
     index = 0
     for x in range(CHUNK_SIZE):
         for y in range(CHUNK_SIZE):
@@ -64,7 +64,7 @@ def build_chunk_mesh(chunk_voxels, format_size):
                     v1 = (x, y + 1, z,     voxel_id, 3)
                     v2 = (x, y + 1, z + 1, voxel_id, 3)
                     v3 = (x, y,     z + 1, voxel_id, 3)
-
+                    
                     index = add_data(vertex_data, index, v0, v2, v1, v0, v3, v2)
                 
                 # back face

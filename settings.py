@@ -4,7 +4,7 @@ import glm
 from numba import njit
 
 #resolution
-WIN_RES = glm.vec2(1280, 720)
+WIN_RES = glm.vec2(1920, 1080)
 
 # chunk
 CHUNK_SIZE = 32
@@ -22,10 +22,10 @@ CAM_FAR = 2000
 PITCH_LIMIT = glm.radians(89.0)
 
 # player
-PLAYER_SPEED = 0.005
+PLAYER_SPEED = 0.01
 PLAYER_ROTATION_SPEED = 0.003
 PLAYER_POS = glm.vec3(H_CHUNK_SIZE, CHUNK_SIZE, 1.5 * CHUNK_SIZE) # Initial position of player
-MOUSE_SENSITIVITY = 0.002
+MOUSE_SENSITIVITY = 0.0015
 
 # colors
 BG_COLOR = glm.vec3(0.1, 0.16, 0.25)

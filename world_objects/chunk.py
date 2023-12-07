@@ -15,11 +15,11 @@ class Chunk:
         self.mesh.render()
     
     def build_voxels(self) -> np.array:
-        #empty chunk
-        voxels = np.zeros(CHUNK_VOL, dtype=np.int8) # Voxel is a number from 0 to 255, where 0 means empty space
+        # empty chunk
+        voxels = np.zeros(CHUNK_VOL, dtype = 'uint8') # Voxel is a number from 0 to 255, where 0 means empty space
         
         for x in range(CHUNK_SIZE):
             for z in range(CHUNK_SIZE):
                 for y in range(CHUNK_SIZE):
-                    voxels[(x + CHUNK_SIZE * z + CHUNK_AREA * y)] = 1
-        return voxels      
+                    voxels[(x + CHUNK_SIZE * z + CHUNK_AREA * y)] = x + y + z
+        return voxels
