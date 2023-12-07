@@ -1,6 +1,7 @@
 import numpy as np
 
 class BaseMesh:
+    # Base mesh class from which to define future meshes from
     def __init__(self):
         # OpenGL context
         self.ctx = None
@@ -16,6 +17,7 @@ class BaseMesh:
     def get_vertex_data(self) -> np.array: ...
 
     def get_vao(self):
+        # Returns vertex array object
         vertex_data = self.get_vertex_data()
         vbo = self.ctx.buffer(vertex_data)
         vao = self.ctx.vertex_array(self.program, [(vbo, self.vbo_format, *self.attrs)], skip_errors=True)

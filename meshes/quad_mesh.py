@@ -15,6 +15,7 @@ class QuadMesh(BaseMesh):
         self.vao = self.get_vao()
     
     def get_vertex_data(self) -> np.array:
+        # Two triangles with CCW vertex traversal
         vertices = [
             (0.5, 0.5, 0.0), (-0.5, 0.5, 0.0), (-0.5, -0.5, 0.0), 
             (0.5, 0.5, 0.0), (-0.5, -0.5, 0.0), (0.5, -0.5, 0.0)

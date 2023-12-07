@@ -13,6 +13,7 @@ class Player(Camera):
         super().update()
 
     def mouse_input(self):
+        # Looks for inputs of mouse movement and rotate camera accordingly
         delta_x, delta_y = pg.mouse.get_rel()
         if delta_x: 
             self.rotate_yaw(delta_x=delta_x * MOUSE_SENSITIVITY)
@@ -20,6 +21,7 @@ class Player(Camera):
             self.rotate_pitch(delta_y=delta_y * MOUSE_SENSITIVITY)
 
     def keyboard_input(self):
+        # Looks for inputs of key presses and moves camera accordingly
         keys = pg.key.get_pressed()
         vel = PLAYER_SPEED * self.app.delta_time
         if keys[pg.K_w]:
