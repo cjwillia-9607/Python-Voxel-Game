@@ -19,7 +19,7 @@ def add_data(vertex_data, index, *vertices):
 def build_chunk_mesh(chunk_voxels, format_size):
     # Only adds data from voxel faces that are visible to camera to imporve performance
     # Max 3 visible faces per voxel, 2 triangles per face, 3 verticies per triangle = 18 verticies
-    vertex_data = np.empty(CHUNK_VOL * 18 * format_size, dtype = 'uint8')
+    vertex_data = np.empty(CHUNK_VOL * 18 * format_size, dtype = np.uint8)
     index = 0
     for x in range(CHUNK_SIZE):
         for y in range(CHUNK_SIZE):
@@ -28,7 +28,6 @@ def build_chunk_mesh(chunk_voxels, format_size):
                 #Ignore empty space
                 if voxel_id == 0:
                     continue
-                
                 # The following functions check if there is empty space beyond the face, if so then add its data (visible)
                 # top face
                 if is_void((x, y + 1, z), chunk_voxels):
@@ -37,7 +36,6 @@ def build_chunk_mesh(chunk_voxels, format_size):
                     v1 = (x + 1, y + 1, z,     voxel_id, 0)
                     v2 = (x + 1, y + 1, z + 1, voxel_id, 0)
                     v3 = (x,     y + 1, z + 1, voxel_id, 0)
-
                     index = add_data(vertex_data, index, v0, v3, v2, v0, v2, v1)
                 
                 # bottom face
@@ -46,7 +44,6 @@ def build_chunk_mesh(chunk_voxels, format_size):
                     v1 = (x + 1, y, z,     voxel_id, 1)
                     v2 = (x + 1, y, z + 1, voxel_id, 1)
                     v3 = (x,     y, z + 1, voxel_id, 1)
-
                     index = add_data(vertex_data, index, v0, v2, v3, v0, v1, v2)
                 
                 # right face
@@ -55,7 +52,6 @@ def build_chunk_mesh(chunk_voxels, format_size):
                     v1 = (x + 1, y + 1, z,     voxel_id, 2)
                     v2 = (x + 1, y + 1, z + 1, voxel_id, 2)
                     v3 = (x + 1, y,     z + 1, voxel_id, 2)
-
                     index = add_data(vertex_data, index, v0, v1, v2, v0, v2, v3)
 
                 # left face
@@ -64,7 +60,6 @@ def build_chunk_mesh(chunk_voxels, format_size):
                     v1 = (x, y + 1, z,     voxel_id, 3)
                     v2 = (x, y + 1, z + 1, voxel_id, 3)
                     v3 = (x, y,     z + 1, voxel_id, 3)
-                    
                     index = add_data(vertex_data, index, v0, v2, v1, v0, v3, v2)
                 
                 # back face
@@ -73,7 +68,6 @@ def build_chunk_mesh(chunk_voxels, format_size):
                     v1 = (x,     y + 1, z , voxel_id, 4)
                     v2 = (x + 1, y + 1, z , voxel_id, 4)
                     v3 = (x + 1, y    , z , voxel_id, 4)
-
                     index = add_data(vertex_data, index, v0, v1, v2, v0, v2, v3)
                 
                 # front face

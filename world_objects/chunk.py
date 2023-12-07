@@ -16,7 +16,7 @@ class Chunk:
     
     def build_voxels(self) -> np.array:
         # empty chunk
-        voxels = np.zeros(CHUNK_VOL, dtype = 'uint8') # Voxel is a number from 0 to 255, where 0 means empty space
+        voxels = np.zeros(CHUNK_VOL, dtype = np.uint8) # Voxel is a number from 0 to 255, where 0 means empty space
         
         for x in range(CHUNK_SIZE):
             for z in range(CHUNK_SIZE):
