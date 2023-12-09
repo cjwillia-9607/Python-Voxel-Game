@@ -1,5 +1,6 @@
 from settings import *
 import pygame as pg
+import dearpygui.dearpygui as dpg
 import sys
 import moderngl as mgl
 from shader_program import ShaderProgram
@@ -17,12 +18,14 @@ class VoxelEngine:
         pg.display.gl_set_attribute(pg.GL_DEPTH_SIZE, 24)
 
         # Initializes the PyGame display and creates OpenGL context (frame and depth buffers)
-        pg.display.set_mode(WIN_RES, flags=pg.OPENGL | pg.DOUBLEBUF | pg.RESIZABLE)
+        self.window_surface = pg.display.set_mode(WIN_RES, flags=pg.OPENGL | pg.DOUBLEBUF | pg.RESIZABLE)
         pg.display.set_caption("Simple Voxel Engine")
         self.ctx = mgl.create_context()
         self.ctx.enable(flags=mgl.DEPTH_TEST | mgl.CULL_FACE | mgl.BLEND)
         # Enables automatic garbage collecting to clean up unused objects
         self.ctx.gc_mode = 'auto'
+
+
 
         # Initialize clock to keep track of program
         self.clock = pg.time.Clock()
@@ -46,23 +49,43 @@ class VoxelEngine:
         self.player.update()
         self.shader_program.update()
         self.scene.update()
-
         self.delta_time = self.clock.tick()
         self.time = pg.time.get_ticks() * 0.001
         # Displays frame rate
-        pg.display.set_caption(f"Voxel Engine | FPS: {self.clock.get_fps():.2f}")
+        pg.display.set_caption(f"Simple Voxel Engine | FPS: {self.clock.get_fps():.2f}")
+        
 
     def render(self):
         # Clears any existing frame and depth buffers and create new scene and frame
         self.ctx.clear(color=BG_COLOR)
         self.scene.render()
         pg.display.flip()
+        
+
 
     def handle_events(self):
         # Watches for escape key presses to close window
         for event in pg.event.get():
             if event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
                 self.running = False
+            # Brings up DearPyGUI window when ` key is pressed
+            if event.type == pg.KEYDOWN and event.key == pg.K_f:
+                # Initialize separate window for DearPyGUI
+                def reset_scene():
+                    pg.quit()
+                    sys.exit()
+                dpg.create_context()
+                dpg.create_viewport()
+                dpg.setup_dearpygui()
+
+                with dpg.window(label="Example Window"):
+                    dpg.add_text("Hello world")
+                    dpg.add_button(label="Reset", callback=reset_scene)
+                    dpg.add_input_text(label="string")
+                    dpg.add_slider_float(label="float")
+                dpg.show_viewport()
+                dpg.start_dearpygui()
+                dpg.destroy_context()
 
     def run(self):
         while self.running:
