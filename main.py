@@ -25,8 +25,6 @@ class VoxelEngine:
         # Enables automatic garbage collecting to clean up unused objects
         self.ctx.gc_mode = 'auto'
 
-
-
         # Initialize clock to keep track of program
         self.clock = pg.time.Clock()
         self.delta_time = 0
@@ -47,7 +45,6 @@ class VoxelEngine:
         self.player = Player(self)
         self.shader_program = ShaderProgram(self)
         self.scene  = Scene(self)
-        self.menu = Menu(self)
 
     def update(self):
         self.player.update()
@@ -62,14 +59,10 @@ class VoxelEngine:
     def render(self):
         # Clears any existing frame and depth buffers and create new scene and frame
         self.ctx.clear(color=BG_COLOR)
-        # self.scene.render()
-        self.menu.render()
+        self.scene.render()
         pg.display.flip()
         
-
-
     def handle_events(self):
-        
         # Watches for escape key presses to close window
         for event in pg.event.get():
             if event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
@@ -83,7 +76,6 @@ class VoxelEngine:
                 dpg.create_context()
                 dpg.create_viewport()
                 dpg.setup_dearpygui()
-
                 with dpg.window(label="Example Window"):
                     dpg.add_text("Hello world")
                     dpg.add_button(label="Reset", callback=reset_scene)
