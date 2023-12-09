@@ -31,6 +31,7 @@ class VoxelEngine:
         self.time = 0
 
         # Locks mouse cursor to the application window
+        self.mouse_lock = True
         pg.event.set_grab(True)
         pg.mouse.set_visible(False)
 
@@ -53,8 +54,7 @@ class VoxelEngine:
         self.delta_time = self.clock.tick()
         self.time = pg.time.get_ticks() * 0.001
         # Displays frame rate
-        pg.display.set_caption(f"Simple Voxel Engine | FPS: {self.clock.get_fps():.2f}")
-        
+        pg.display.set_caption(f"Simple Voxel Engine | FPS: {self.clock.get_fps():.0f}")
 
     def render(self):
         # Clears any existing frame and depth buffers and create new scene and frame
@@ -62,28 +62,42 @@ class VoxelEngine:
         self.scene.render()
         pg.display.flip()
         
+    def reset_scene(self):
+        # TODO
+        self.__init__()
+
     def handle_events(self):
         # Watches for escape key presses to close window
         for event in pg.event.get():
             if event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
                 self.running = False
             # Brings up DearPyGUI window when ` key is pressed
-            if event.type == pg.KEYDOWN and event.key == pg.K_f:
+            if event.type == pg.KEYDOWN and event.key == pg.K_BACKQUOTE:
                 # Initialize separate window for DearPyGUI
-                def reset_scene():
-                    pg.quit()
-                    sys.exit()
                 dpg.create_context()
                 dpg.create_viewport()
+                dpg.set_viewport_title(title="Voxel Game GUI")
                 dpg.setup_dearpygui()
-                with dpg.window(label="Example Window"):
-                    dpg.add_text("Hello world")
-                    dpg.add_button(label="Reset", callback=reset_scene)
-                    dpg.add_input_text(label="string")
-                    dpg.add_slider_float(label="float")
+                dpg.set_viewport_height(500)
+                dpg.set_viewport_width(500)
+                with dpg.window(label="Master Console", width=500, height=500):
+                    dpg.add_text("This is the master console, please close to resume game")
+                    dpg.add_button(label="Reset World", callback=self.reset_scene, width=300, height=30)
+                    with dpg.popup(dpg.last_item()):
+                        dpg.add_text("Resets the world and re-renders the scene")
                 dpg.show_viewport()
                 dpg.start_dearpygui()
                 dpg.destroy_context()
+            if event.type == pg.KEYDOWN and event.key == pg.K_t:
+                # Unlocks or Locks mouse cursor to the application window
+                if self.mouse_lock:
+                    self.mouse_lock = False
+                    pg.event.set_grab(False)
+                    pg.mouse.set_visible(True)
+                else:
+                    self.mouse_lock = True
+                    pg.event.set_grab(True)
+                    pg.mouse.set_visible(False)
 
     def run(self):
         while self.running:
@@ -92,7 +106,6 @@ class VoxelEngine:
             self.render()
         pg.quit()
         sys.exit()
-
 
 if __name__ == "__main__":
     engine = VoxelEngine()

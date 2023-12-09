@@ -6,6 +6,7 @@ class Player(Camera):
     def __init__(self, app, position=PLAYER_POS, yaw=-90, pitch=0):
         self.app = app
         super().__init__(position, yaw, pitch)
+        self.speed = PLAYER_SPEED
     
     def update(self):
         self.mouse_input()
@@ -23,7 +24,7 @@ class Player(Camera):
     def keyboard_input(self):
         # Looks for inputs of key presses and moves camera accordingly
         keys = pg.key.get_pressed()
-        vel = PLAYER_SPEED * self.app.delta_time
+        vel = self.speed * self.app.delta_time
         # Moves player horizontally
         if keys[pg.K_w]:
             self.move_forward(vel)
@@ -38,3 +39,8 @@ class Player(Camera):
             self.move_up(vel)
         if keys[pg.K_LSHIFT]:
             self.move_down(vel)
+        # Changes player speed
+        if keys[pg.K_LCTRL]:
+            self.speed = PLAYER_SPEED * 2
+        if keys[pg.K_LALT]:
+            self.speed = PLAYER_SPEED
