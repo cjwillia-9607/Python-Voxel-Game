@@ -7,6 +7,7 @@ from shader_program import ShaderProgram
 from scene import Scene
 from player import Player
 from textures import Textures
+from menus import Menu
 
 class VoxelEngine:
     def __init__(self):
@@ -36,6 +37,9 @@ class VoxelEngine:
         pg.event.set_grab(True)
         pg.mouse.set_visible(False)
 
+        # fonts
+        self.font = pg.font.SysFont('Arial', 32)
+
         self.running = True
         self.on_init()
 
@@ -44,6 +48,7 @@ class VoxelEngine:
         self.player = Player(self)
         self.shader_program = ShaderProgram(self)
         self.scene  = Scene(self)
+        self.menu = Menu(self)
 
     def update(self):
         self.player.update()
@@ -58,12 +63,14 @@ class VoxelEngine:
     def render(self):
         # Clears any existing frame and depth buffers and create new scene and frame
         self.ctx.clear(color=BG_COLOR)
-        self.scene.render()
+        # self.scene.render()
+        self.menu.render()
         pg.display.flip()
         
 
 
     def handle_events(self):
+        
         # Watches for escape key presses to close window
         for event in pg.event.get():
             if event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:

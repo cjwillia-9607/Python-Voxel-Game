@@ -4,6 +4,7 @@
         "./lib/pyglm",
         "./lib/modern-gl",
         "./lib/pygame",
-        "./lib/numpy"
+        "./lib/numpy",
+        "./lib/pyimgui",
     ]
 }

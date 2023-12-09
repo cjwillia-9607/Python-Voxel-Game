@@ -13,7 +13,7 @@ CHUNK_AREA = CHUNK_SIZE * CHUNK_SIZE
 CHUNK_VOL = CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE
 
 # world
-WORLD_W, WORLD_H = 10, 3     # How many chunks in each direction
+WORLD_W, WORLD_H = 16, 3     # How many chunks in each direction
 WORLD_D = WORLD_W
 WORLD_AREA = WORLD_W * WORLD_D
 WORLD_VOL = WORLD_W * WORLD_H * WORLD_D
@@ -32,10 +32,11 @@ CAM_FAR = 2000
 PITCH_LIMIT = glm.radians(89.0)
 
 # player
-PLAYER_SPEED = 0.01
+PLAYER_SPEED = 0.1
 PLAYER_ROTATION_SPEED = 0.003
 PLAYER_POS = glm.vec3(CENTER_XZ, WORLD_H * CHUNK_SIZE, CENTER_XZ) # Initial position of player
 MOUSE_SENSITIVITY = 0.0015
 
 # colors
 BG_COLOR = glm.vec3(0.53, 0.81, 0.92)
+TEXT_COLOR = glm.vec3(255,255,255)
