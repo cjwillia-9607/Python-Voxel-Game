@@ -7,7 +7,6 @@ from shader_program import ShaderProgram
 from scene import Scene
 from player import Player
 from textures import Textures
-from menus import Menu
 
 class VoxelEngine:
     def __init__(self):
