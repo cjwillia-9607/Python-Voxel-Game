@@ -4,10 +4,10 @@ import glm
 from numba import njit
 
 #resolution
-WIN_RES = glm.vec2(1440, 900)
+WIN_RES = glm.vec2(800, 600)
 
 # chunk
-CHUNK_SIZE = 32
+CHUNK_SIZE = 16
 H_CHUNK_SIZE = CHUNK_SIZE // 2
 CHUNK_AREA = CHUNK_SIZE * CHUNK_SIZE
 CHUNK_VOL = CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE
