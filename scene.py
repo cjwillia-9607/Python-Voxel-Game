@@ -5,7 +5,7 @@ from world import World
 class Scene:
     def __init__(self, app, seed):
         self.app = app
-        self.ctx = app.ctx
+        # self.ctx = app.ctx
         self.seed = seed
         self.world = World(self.app, self.seed)
 

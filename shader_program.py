@@ -27,4 +27,5 @@ class ShaderProgram:
             vertex_shader = f.read()
         with open(f"shaders/{shader_name}.frag") as f:
             fragment_shader = f.read()
-        return self.ctx.program(vertex_shader=vertex_shader, fragment_shader=fragment_shader)
+        program = self.ctx.program(vertex_shader=vertex_shader, fragment_shader=fragment_shader)
+        return program
