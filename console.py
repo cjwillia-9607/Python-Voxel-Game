@@ -1,4 +1,5 @@
 import dearpygui.dearpygui as dpg
+from settings import *
 
 engine = None
 

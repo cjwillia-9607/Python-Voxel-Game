@@ -22,7 +22,9 @@ def run_console():
 if __name__ == "__main__":
     engine_thread = threading.Thread(target=run_game)
     console_thread = threading.Thread(target=run_console)
+    
     engine_thread.start()
     console_thread.start()
+
     engine_thread.join()
     console_thread.join()
