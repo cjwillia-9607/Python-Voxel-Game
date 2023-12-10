@@ -33,9 +33,9 @@ const int uv_indices[24] = int[24](1, 0, 2, 1, 2, 3,    // tex_coords for even f
 
 // hash function to map a number to a 3 component vector color
 vec3 hash31(float p) {
-    vec3 p3 = fract(vec3(p * 21.2) * vec3(0.1031, 0.1030, 0.0973));
-    p3 += dot(p3, p3.yzx + 33.33);
-    return fract((p3.xxy + p3.yzz) * p3.zyx) + 0.05;
+    vec3 p_vec = fract(vec3(p * 21.2) * vec3(0.1031, 0.1030, 0.0973));
+    p_vec += dot(p_vec, p_vec.yzx + 33.33);
+    return fract((p_vec.xxy + p_vec.yzz) * p_vec.zyx) + 0.05;
 }
 
 void main() {

@@ -120,7 +120,7 @@ def build_chunk_mesh(chunk_voxels, format_size, chunk_pos, world_voxels):
                     # Get ambient occlusion for face
                     amb_occ = get_amb_occ((x, y + 1, z), (wx, wy + 1, wz), world_voxels, 'Y')
                     # Flip bool to check for anisotropic lighting
-                    to_flip = amb_occ[0] + amb_occ[2] > amb_occ[1] + amb_occ[3]
+                    to_flip = amb_occ[1] + amb_occ[3] > amb_occ[0] + amb_occ[2]
 
                     # Attributes for 4 verticies of face (x, y, z, voxel_id, face_id, amb_occ)
                     v0 = to_numba_uint8(x,     y + 1, z,     voxel_id, 0, amb_occ[0], to_flip)
@@ -128,54 +128,54 @@ def build_chunk_mesh(chunk_voxels, format_size, chunk_pos, world_voxels):
                     v2 = to_numba_uint8(x + 1, y + 1, z + 1, voxel_id, 0, amb_occ[2], to_flip)
                     v3 = to_numba_uint8(x,     y + 1, z + 1, voxel_id, 0, amb_occ[3], to_flip)
                     if to_flip:
-                        index = add_data(vertex_data, index, v0, v3, v2, v0, v2, v1)
-                    else:
                         index = add_data(vertex_data, index, v1, v0, v3, v1, v3, v2)
+                    else:
+                        index = add_data(vertex_data, index, v0, v3, v2, v0, v2, v1)
                     
                 
                 # bottom face
                 if is_void((x, y - 1, z), (wx, wy - 1, wz), world_voxels):
                     amb_occ = get_amb_occ((x, y - 1, z), (wx, wy - 1, wz), world_voxels, 'Y')
-                    to_flip = amb_occ[0] + amb_occ[2] > amb_occ[1] + amb_occ[3]
+                    to_flip = amb_occ[1] + amb_occ[3] > amb_occ[0] + amb_occ[2]
                     v1 = to_numba_uint8(x + 1, y, z,     voxel_id, 1, amb_occ[0], to_flip)
                     v0 = to_numba_uint8(x,     y, z,     voxel_id, 1, amb_occ[1], to_flip)
                     v2 = to_numba_uint8(x + 1, y, z + 1, voxel_id, 1, amb_occ[2], to_flip)
                     v3 = to_numba_uint8(x,     y, z + 1, voxel_id, 1, amb_occ[3], to_flip)
                     if to_flip:
-                        index = add_data(vertex_data, index, v0, v2, v3, v0, v1, v2)
-                    else:
                         index = add_data(vertex_data, index, v1, v3, v0, v1, v2, v3)
+                    else:
+                        index = add_data(vertex_data, index, v0, v2, v3, v0, v1, v2)
                 
                 # right face
                 if is_void((x + 1, y, z), (wx + 1, wy, wz), world_voxels):
                     amb_occ = get_amb_occ((x + 1, y, z), (wx + 1, wy, wz), world_voxels, 'X')
-                    to_flip = amb_occ[0] + amb_occ[2] > amb_occ[1] + amb_occ[3]
+                    to_flip = amb_occ[1] + amb_occ[3] > amb_occ[0] + amb_occ[2]
                     v0 = to_numba_uint8(x + 1, y,     z,     voxel_id, 2, amb_occ[0], to_flip)
                     v1 = to_numba_uint8(x + 1, y + 1, z,     voxel_id, 2, amb_occ[1], to_flip)
                     v2 = to_numba_uint8(x + 1, y + 1, z + 1, voxel_id, 2, amb_occ[2], to_flip)
                     v3 = to_numba_uint8(x + 1, y,     z + 1, voxel_id, 2, amb_occ[3], to_flip)
                     if to_flip:
-                        index = add_data(vertex_data, index, v0, v1, v2, v0, v2, v3)
-                    else:
                         index = add_data(vertex_data, index, v3, v0, v1, v3, v1, v2)
+                    else:
+                        index = add_data(vertex_data, index, v0, v1, v2, v0, v2, v3)
 
                 # left face
                 if is_void((x - 1, y, z), (wx - 1, wy, wz), world_voxels):
                     amb_occ = get_amb_occ((x - 1, y, z), (wx - 1, wy, wz), world_voxels, 'X')
-                    to_flip = amb_occ[0] + amb_occ[2] > amb_occ[1] + amb_occ[3]
+                    to_flip = amb_occ[1] + amb_occ[3] > amb_occ[0] + amb_occ[2]
                     v0 = to_numba_uint8(x, y,     z,     voxel_id, 3, amb_occ[0], to_flip)
                     v1 = to_numba_uint8(x, y + 1, z,     voxel_id, 3, amb_occ[1], to_flip)
                     v2 = to_numba_uint8(x, y + 1, z + 1, voxel_id, 3, amb_occ[2], to_flip)
                     v3 = to_numba_uint8(x, y,     z + 1, voxel_id, 3, amb_occ[3], to_flip)
                     if to_flip:
-                        index = add_data(vertex_data, index, v0, v2, v1, v0, v3, v2)
-                    else:
                         index = add_data(vertex_data, index, v3, v1, v0, v3, v2, v1)
+                    else:
+                        index = add_data(vertex_data, index, v0, v2, v1, v0, v3, v2)
 
                 # back face
                 if is_void((x, y, z - 1), (wx, wy, wz - 1), world_voxels):
                     amb_occ = get_amb_occ((x, y, z - 1), (wx, wy, wz - 1), world_voxels, 'Z')
-                    to_flip = amb_occ[0] + amb_occ[2] > amb_occ[1] + amb_occ[3]
+                    to_flip = amb_occ[1] + amb_occ[3] > amb_occ[0] + amb_occ[2]
                     v0 = to_numba_uint8(x,     y,     z , voxel_id, 4, amb_occ[0], to_flip)
                     v1 = to_numba_uint8(x,     y + 1, z , voxel_id, 4, amb_occ[1], to_flip)
                     v2 = to_numba_uint8(x + 1, y + 1, z , voxel_id, 4, amb_occ[2], to_flip)
@@ -188,15 +188,15 @@ def build_chunk_mesh(chunk_voxels, format_size, chunk_pos, world_voxels):
                 # front face
                 if is_void((x, y, z + 1), (wx, wy, wz + 1), world_voxels):
                     amb_occ = get_amb_occ((x, y, z + 1), (wx, wy, wz + 1), world_voxels, 'Z')
-                    to_flip = amb_occ[0] + amb_occ[2] > amb_occ[1] + amb_occ[3]
+                    to_flip = amb_occ[1] + amb_occ[3] > amb_occ[0] + amb_occ[2]
                     v0 = to_numba_uint8(x,     y,     z + 1, voxel_id, 5, amb_occ[0], to_flip)
                     v1 = to_numba_uint8(x,     y + 1, z + 1, voxel_id, 5, amb_occ[1], to_flip)
                     v2 = to_numba_uint8(x + 1, y + 1, z + 1, voxel_id, 5, amb_occ[2], to_flip)
                     v3 = to_numba_uint8(x + 1, y,     z + 1, voxel_id, 5, amb_occ[3], to_flip)
                     if to_flip:
-                        index = add_data(vertex_data, index, v0, v2, v1, v0, v3, v2)
-                    else:
                         index = add_data(vertex_data, index, v3, v1, v0, v3, v2, v1)
+                    else:
+                        index = add_data(vertex_data, index, v0, v2, v1, v0, v3, v2)
      
     # Returns part of array that contains only vertex data
     return vertex_data[:index + 1]
