@@ -26,4 +26,4 @@ class Console:
 
 def reset_scene():
     print("Resetting")
-    engine.reset_scene()
+    engine.reset = True

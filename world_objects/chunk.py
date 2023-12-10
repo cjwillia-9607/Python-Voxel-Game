@@ -2,10 +2,11 @@ from settings import *
 from meshes.chunk_mesh import ChunkMesh
 
 class Chunk:
-    def __init__(self, world, position):
+    def __init__(self, world, position, seed):
         self.app = world.app
         self.world = world  # Each chunk will be associated with a world and position in given world
         self.position = position
+        self.seed = seed
         self.m_model = self.get_model_matrix()
         self.voxels: None
         self.mesh: ChunkMesh = None
@@ -37,10 +38,11 @@ class Chunk:
         # Iterates through horizontal plane then verticalally
         for x in range(CHUNK_SIZE):
             for z in range(CHUNK_SIZE):
-                wx = x + cx # World coord of curr voxel
-                wz = z + cz
-                # Simplex noise to generate terrain elevation differences
-                world_height = int(glm.simplex(glm.vec2(wx, wz) * 0.01) * 32 + 32)
+                # World coord of curr voxel
+                wx = x + cx + self.seed
+                wz = z + cz + self.seed
+                # Perlin noise to generate terrain elevation differences
+                world_height = int(glm.perlin(glm.vec2(wx, wz) * 0.01) * 32 + 32)
                 local_height = min(world_height - cy, CHUNK_SIZE)
                 for y in range(local_height):
                     wy = y + cy

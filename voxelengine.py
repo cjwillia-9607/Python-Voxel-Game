@@ -10,7 +10,8 @@ from textures import Textures
 from console import Console
 
 class VoxelEngine:
-    def __init__(self):
+    def __init__(self, seed):
+        self.seed = seed
         # Initialize PyGame and OpenGL versions
         pg.init()
         pg.display.gl_set_attribute(pg.GL_CONTEXT_MAJOR_VERSION, 3)
@@ -47,7 +48,7 @@ class VoxelEngine:
         self.textures = Textures(self)
         self.player = Player(self)
         self.shader_program = ShaderProgram(self)
-        self.scene  = Scene(self)
+        self.scene  = Scene(self, self.seed)
 
     def update(self):
         self.player.update()
@@ -87,10 +88,13 @@ class VoxelEngine:
                     pg.event.set_grab(True)
                     pg.mouse.set_visible(False)
             if event.type == pg.KEYDOWN and event.key == pg.K_r:
-                self.reset_scene()
+                self.reset = True
 
     def run(self):
-        while self.running or (self.reset and not self.running):
+        while self.running:
+            if self.reset:
+                self.on_init()
+                self.reset = False
             self.handle_events()
             self.update()
             self.render()
