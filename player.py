@@ -3,7 +3,12 @@ from camera import Camera
 from settings import *
 
 class Player(Camera):
-    def __init__(self, app, position=PLAYER_POS, yaw=-90, pitch=0):
+    # def __init__(self, app, position=PLAYER_POS, yaw=-90, pitch=0):
+    #     self.app = app
+    #     super().__init__(position, yaw, pitch)
+    #     self.speed = PLAYER_SPEED
+    
+    def __init__(self, app, position=CHUNK_SIZE*glm.vec3(1.375*WORLD_W,  11/3*WORLD_H, 1.375*WORLD_W), yaw=-134.37, pitch=-46.42):
         self.app = app
         super().__init__(position, yaw, pitch)
         self.speed = PLAYER_SPEED
