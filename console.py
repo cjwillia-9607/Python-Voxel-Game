@@ -18,7 +18,21 @@ class Console:
         dpg.set_viewport_height(500)
         dpg.set_viewport_width(500)
         with dpg.window(label="Master Console", width=500, height=500):
-            dpg.add_text("This is the master console, please close to resume game")
+            dpg.add_text("This is the master console for the Voxel Game")
+            dpg.add_text(" ")
+            dpg.add_text("--------------------------------")
+            dpg.add_text("| Right Click Me for Controls! |")
+            with dpg.popup(dpg.last_item()):
+                dpg.add_text("Controls: W, A, S, D = Player-Relative Horizontal Movement")
+                dpg.add_text("          Spacebar, Shift = Player-Relative Vertical Movement")
+                dpg.add_text("          Left Ctrl, Left Alt = Speed up / Slow down")
+                dpg.add_text("          T = Lock / Unlock Mouse")
+                dpg.add_text("          R = Reset World")
+                dpg.add_text("          P = Take Screenshot")
+                dpg.add_text("          Mouse = Camera Movement")
+                dpg.add_text("          Escape = Quit All")
+            dpg.add_text("--------------------------------")
+            dpg.add_text(" ")
             dpg.add_button(label="Reset World", callback=reset_scene, width=300, height=30)
             with dpg.popup(dpg.last_item()):
                 dpg.add_text("Resets the world and re-renders the scene")

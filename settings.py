@@ -13,7 +13,7 @@ CHUNK_AREA = CHUNK_SIZE * CHUNK_SIZE
 CHUNK_VOL = CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE
 
 # world
-WORLD_W, WORLD_H = 8, 3     # How many chunks in each direction
+WORLD_W, WORLD_H = 16, 3     # How many chunks in each direction
 WORLD_D = WORLD_W
 WORLD_AREA = WORLD_W * WORLD_D
 WORLD_VOL = WORLD_W * WORLD_H * WORLD_D

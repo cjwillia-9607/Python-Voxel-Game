@@ -19,10 +19,12 @@ class Picture(Camera):
 
         directory = "screenshots"
         num_png_files = count_png_files(directory)
-        with open(f"{directory}/screenshot{num_png_files}.png", "wb") as f:
-            pixels = self.ctx.read_pixels()
-            image = Image.frombytes("RGB", (self.app.width, self.app.height), pixels)
-            image = image.transpose(Image.FLIP_TOP_BOTTOM)
-            image.save(f, "PNG")
-            print(f"Saved screenshot to {directory}/screenshot{num_png_files}.png")
+        fbo = self.ctx.simple_framebuffer((int(WIN_RES[0]), int(WIN_RES[1])))
+        pixel_data = fbo.read(components=3, dtype='f1')
+        pixels = np.frombuffer(pixel_data, dtype=np.uint8)
+        print(pixels)
+        pixels = pixels.reshape((int(WIN_RES[1]), int(WIN_RES[0]), 3))
+        screenshot_surface = pg.surfarray.make_surface(pixels.swapaxes(0, 1))
+        pg.image.save(screenshot_surface, "{directory}/screenshot{num_png_files}.png")
+        print(f"Saved screenshot to {directory}/screenshot{num_png_files}.png")
         

@@ -72,7 +72,7 @@ class VoxelEngine:
         # Watches for escape key presses to close window
         for event in pg.event.get():
             if event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
-                # self.running = False
+                self.running = False
                 self.console.exit()
             if event.type == pg.KEYDOWN and event.key == pg.K_t:
                 # Unlocks or Locks mouse cursor to the application window
