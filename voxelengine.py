@@ -64,13 +64,6 @@ class VoxelEngine:
         self.ctx.clear(color=BG_COLOR)
         self.scene.render()
         pg.display.flip()
-        
-    def reset_scene(self):
-        self.reset = True
-        self.running = False
-        self.on_init()
-        self.running = True
-        self.reset = False
 
     def handle_events(self):
         # Watches for escape key presses to close window

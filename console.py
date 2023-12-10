@@ -20,6 +20,12 @@ class Console:
             dpg.add_button(label="Reset World", callback=reset_scene, width=300, height=30)
             with dpg.popup(dpg.last_item()):
                 dpg.add_text("Resets the world and re-renders the scene")
+            # text input
+            dpg.add_text("Seed:")
+            dpg.add_input_text(label="Seed Input", tag="seed", default_value=str(engine.seed), width=300, height=30)
+            dpg.add_button(label="Set Seed", callback=set_seed, width=300, height=30)
+            dpg.add_button(label="Exit Game", callback=exit, width=300, height=30)
+
         dpg.show_viewport()
         dpg.start_dearpygui()
         dpg.destroy_context()
@@ -27,3 +33,14 @@ class Console:
 def reset_scene():
     print("Resetting")
     engine.reset = True
+
+def exit():
+    global engine
+    print("Exiting")
+    engine.running = False
+    dpg.destroy_context()
+    engine = None
+
+def set_seed():
+    global engine
+    engine.seed = int(dpg.get_value("seed"))
