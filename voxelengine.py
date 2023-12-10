@@ -6,12 +6,14 @@ import moderngl as mgl
 from shader_program import ShaderProgram
 from scene import Scene
 from player import Player
+from picture import Picture
 from textures import Textures
 from console import Console
 
 class VoxelEngine:
     def __init__(self, seed):
         self.seed = seed
+        self.console = None
         # Initialize PyGame and OpenGL versions
         pg.init()
         pg.display.gl_set_attribute(pg.GL_CONTEXT_MAJOR_VERSION, 3)
@@ -49,6 +51,7 @@ class VoxelEngine:
         self.player = Player(self)
         self.shader_program = ShaderProgram(self)
         self.scene  = Scene(self, self.seed)
+        self.picture_cam = Picture(self)
 
     def update(self):
         self.player.update()
@@ -69,7 +72,8 @@ class VoxelEngine:
         # Watches for escape key presses to close window
         for event in pg.event.get():
             if event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
-                self.running = False
+                # self.running = False
+                self.console.exit()
             if event.type == pg.KEYDOWN and event.key == pg.K_t:
                 # Unlocks or Locks mouse cursor to the application window
                 if self.mouse_lock:
@@ -82,6 +86,9 @@ class VoxelEngine:
                     pg.mouse.set_visible(False)
             if event.type == pg.KEYDOWN and event.key == pg.K_r:
                 self.reset = True
+            if event.type == pg.KEYDOWN and event.key == pg.K_p:
+                print(f"Position: {self.player.position}\nYaw: {glm.degrees(self.player.yaw)}\nPitch: {glm.degrees(self.player.pitch)}")
+                self.picture_cam.save()
 
     def run(self):
         while self.running:

@@ -8,6 +8,7 @@ class Console:
         global engine
         engine = app
         self.app = app
+        self.app.console = self
 
     def run(self):
         dpg.create_context()
@@ -30,6 +31,9 @@ class Console:
         dpg.show_viewport()
         dpg.start_dearpygui()
         dpg.destroy_context()
+    
+    def exit(self):
+        exit()
 
 def reset_scene():
     print("Resetting")
