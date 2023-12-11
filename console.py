@@ -40,10 +40,6 @@ class Console:
             dpg.add_text("Seed:")
             dpg.add_input_text(label="Seed Input", tag="seed", default_value=str(engine.seed), width=300, height=30)
             dpg.add_button(label="Set Seed", callback=set_seed, width=300, height=30)
-            dpg.add_text("Sky/BG Color:")
-            bg_color = (int(engine.bg_color[0]*255), int(engine.bg_color[1]*255), int(engine.bg_color[2]*255), 255)
-            dpg.add_color_edit(label="Set BG_COLOR", tag="BG_COLOR", default_value=bg_color, width=300, height=30)
-            dpg.add_button(label="Set Sky/BG Color", callback=set_bg_color, width=300, height=30)
             dpg.add_button(label="Exit Game", callback=exit, width=300, height=30)
 
         dpg.show_viewport()
@@ -67,8 +63,3 @@ def exit():
 def set_seed():
     global engine
     engine.seed = int(dpg.get_value("seed"))
-
-def set_bg_color():
-    global engine
-    new_color = dpg.get_value("BG_COLOR")
-    engine.bg_color = glm.vec3(new_color[0]/255, new_color[1]/255, new_color[2]/255)
