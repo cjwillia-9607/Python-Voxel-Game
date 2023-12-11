@@ -13,6 +13,7 @@ class Picture(Camera):
         self.directory = "./screenshots/"
     
     def save(self):
+        # TODO: make it so that the picture is taken from this camera's POV, not player
         def count_png_files(directory):
             png_files = glob.glob(directory + "/*.png")
             return len(png_files)
