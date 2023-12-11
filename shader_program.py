@@ -4,7 +4,6 @@ class ShaderProgram:
     def __init__(self, app):
         self.app = app
         self.ctx = app.ctx
-        self.player = app.player
 
         # shaders
         self.chunk = self.get_program(shader_name='chunk')  # Creates shader program for chunk

@@ -44,3 +44,8 @@ class Player(Camera):
             self.speed = PLAYER_SPEED * 2
         if keys[pg.K_LALT]:
             self.speed = PLAYER_SPEED
+    
+    def teleport(self, position, yaw, pitch):
+        self.position = glm.vec3(position)
+        self.yaw = glm.radians(yaw)
+        self.pitch = glm.radians(pitch)
