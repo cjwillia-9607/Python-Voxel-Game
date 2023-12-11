@@ -89,6 +89,7 @@ class VoxelEngine:
             if event.type == pg.KEYDOWN and event.key == pg.K_p:
                 print(f"Position: {self.player.position}\nYaw: {glm.degrees(self.player.yaw)}\nPitch: {glm.degrees(self.player.pitch)}")
                 self.picture_cam.save()
+                
 
     def run(self):
         while self.running:
