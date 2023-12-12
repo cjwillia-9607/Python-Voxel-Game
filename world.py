@@ -27,9 +27,9 @@ class World:
         for chunk in self.chunks:
             chunk.build_mesh()
 
-    def update(self):
-        pass
-
     def render(self):
         for chunk in self.chunks:
             chunk.render()
+    
+    def update(self):
+        pass

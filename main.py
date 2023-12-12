@@ -13,8 +13,11 @@ def run_game():
 
 def run_console():
     global engine
+    half_report = True
     while engine is None:
-        print("Waiting for engine to initialize")
+        if half_report:
+            print("Waiting for engine to initialize.")
+        half_report = not half_report
         pass
     console = Console(engine)
     console.run()

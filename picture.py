@@ -18,6 +18,8 @@ class Picture(Camera):
             png_files = glob.glob(directory + "/*.png")
             return len(png_files)
         os.makedirs(self.directory, exist_ok=True)
+        pos = (self.app.player.position, self.app.player.yaw, self.app.player.pitch)
+        self.app.player.teleport(position=glm.vec3(1.375*WORLD_W*CHUNK_SIZE,  11/3*WORLD_H*CHUNK_SIZE, 1.375*WORLD_W*CHUNK_SIZE), yaw=self.yaw, pitch=self.pitch)
         num_png_files = count_png_files(self.directory)
         fbo = self.ctx.screen
         pixel_data = fbo.read(components=3, dtype='f1')
@@ -26,4 +28,5 @@ class Picture(Camera):
         screenshot_surface = pg.surfarray.make_surface(pixels.swapaxes(1, 0))
         output_path = os.path.join(self.directory, f"screenshot{num_png_files}.png")
         pg.image.save(screenshot_surface, output_path)
+        self.app.player.teleport(position=pos[0], yaw=pos[1], pitch=pos[2])
         

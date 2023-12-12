@@ -42,7 +42,8 @@ class Chunk:
                 wx = x + cx + self.seed
                 wz = z + cz + self.seed
                 # Perlin noise to generate terrain elevation differences
-                world_height = int(glm.perlin(glm.vec2(wx, wz) * 0.01) * 32 + 32)
+                # world_height = int(glm.perlin(glm.vec2(wx, wz) * 0.01) * 32 + 32)
+                world_height = int(glm.perlin(glm.vec2(wx, wz) * 0.01) * 32 + glm.perlin(glm.vec2(wx, wz) * 0.1) * 4 + glm.perlin(glm.vec2(wx, wz) * 0.5) + 32)
                 local_height = min(world_height - cy, CHUNK_SIZE)
                 for y in range(local_height):
                     wy = y + cy
